@@ -1,4 +1,4 @@
-# ia462-midterm-&lt;your-username&gt;
+# ia462-midterm-&lt;Diya110104&gt;
 
 IA 462 Advanced OS Security & Administration midterm. Write-up: **[midterm/MIDTERM.md](midterm/MIDTERM.md)**.
 
