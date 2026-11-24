@@ -1,0 +1,47 @@
+title: PowerShell Launched With an Encoded Command
+id: 452eb8ba-f423-4f0f-97c5-f570b91e283d
+status: experimental
+description: |
+  Detects powershell.exe / pwsh.exe started with -EncodedCommand (or one of its
+  abbreviations), which attackers use to hide a script from casual inspection of
+  the command line. Observed in Section 2 of the IA 462 midterm: Security 4688
+  (command-line auditing enabled) and Sysmon Event ID 1 both record the
+  "-EncodedCommand <base64>" argument. The decoded script is in PowerShell 4104.
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+  - https://attack.mitre.org/techniques/T1027/010/
+  - https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_pwsh
+author: IA 462 student
+date: 2026-11-21
+tags:
+  - attack.execution
+  - attack.t1059.001
+  - attack.defense-evasion
+  - attack.t1027.010
+logsource:
+  category: process_creation
+  product: windows
+  # Fed by Security 4688 (ProcessCreationIncludeCmdLine_Enabled=1) or Sysmon EID 1
+detection:
+  selection_img:
+    - Image|endswith:
+        - '\powershell.exe'
+        - '\pwsh.exe'
+    - OriginalFileName:
+        - 'PowerShell.EXE'
+        - 'pwsh.dll'
+  selection_flag:
+    # PowerShell accepts any unambiguous prefix of -EncodedCommand, and / or - as
+    # the switch character. windash matches -, /, en/em dash and horizontal bar.
+    CommandLine|windash|contains:
+      - ' -e '
+      - ' -en '
+      - ' -enc '
+      - ' -enco'
+      - ' -encodedcommand '
+      - ' -ec '
+  condition: all of selection_*
+falsepositives:
+  - Some management agents (SCCM, Intune scripts, vendor installers) pass encoded commands
+  - Administrators who use -EncodedCommand to avoid quoting problems
+level: medium

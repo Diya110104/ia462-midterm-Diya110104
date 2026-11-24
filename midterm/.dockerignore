@@ -1,0 +1,6 @@
+# Only app/ and requirements.lock are needed in the build context.
+*
+!app/
+!requirements.lock
+**/__pycache__
+**/*.pyc

@@ -1,0 +1,27 @@
+name: dependency-review
+
+# Blocks any PR that introduces a dependency with a known vulnerability of
+# severity high or above (e.g. downgrading Flask to 2.0.0 -> CVE-2023-30861).
+# Requires Dependency graph to be enabled (Settings -> Code security).
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write   # lets the action post its summary comment on the PR
+
+jobs:
+  dependency-review:
+    name: dependency-review
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Dependency Review
+        uses: actions/dependency-review-action@bbc44d14a204704ccc493733616cd1e93a0321ec # v5.0.1
+        with:
+          fail-on-severity: high
+          comment-summary-in-pr: always

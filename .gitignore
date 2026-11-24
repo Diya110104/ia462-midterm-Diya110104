@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+
+# Secrets / local config - never commit
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+secrets/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Backups made by the hardening scripts
+*.bak.ia462
+
+# Video stays out of the repo (submit to Canvas)
+*.wmv
+*.mp4

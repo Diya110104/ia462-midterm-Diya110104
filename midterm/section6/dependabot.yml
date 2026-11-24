@@ -1,0 +1,26 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/midterm"          # requirements.txt / requirements.lock
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels: ["dependencies", "python"]
+    groups:
+      flask-stack:
+        patterns: ["flask", "werkzeug", "jinja2", "markupsafe", "itsdangerous", "click", "blinker"]
+
+  - package-ecosystem: "docker"
+    directory: "/midterm"          # Dockerfile base image digest
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels: ["dependencies", "docker"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"                 # .github/workflows/*.yml (SHA pins)
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels: ["dependencies", "github-actions"]
