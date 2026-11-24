@@ -1,0 +1,5 @@
+# World-writable files on Puru - 2026-11-24 17:05:49 EST
+# find / -xdev \( -path /proc -o -path /sys -o -path /dev -o -path /run -o -path /mnt -o -path /snap \) -prune -o -type f -perm -0002 -print
+
+# World-writable directories WITHOUT the sticky bit (higher risk)
+drwxrwxrwx 2 root root 60 Nov 24 13:27 /tmp/.X11-unix
