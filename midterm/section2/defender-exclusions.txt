@@ -1,2 +1,13 @@
-﻿
+﻿# Get-MpPreference | Select-Object ExclusionPath, ExclusionExtension, ExclusionProcess
+#
+# Result on this host:
+#   Get-MpPreference : Operation failed with the following error: 0x800106ba
+#   Add-MpPreference : Operation failed with the following error: 0x800106ba
+#
+# 0x800106ba = the Microsoft Defender service is not running.
+# Norton 360 is the registered antivirus (root/SecurityCenter2 AntivirusProduct),
+# so Windows keeps Defender (WinDefend) stopped and in passive mode. No Defender
+# exclusion can be configured or listed while a third-party AV is active.
+# Evidence: screenshots/05-defender-status.png and screenshots/10-defender-exclusions.png
+# Attempted exclusion path: C:\ia462-midterm\app
 
